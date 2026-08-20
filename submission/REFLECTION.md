@@ -111,30 +111,25 @@ Khi tăng luồng lên `-t 8` (bật Hyperthreading) và đặc biệt là `-t 1
 
 ## 6. Bonus  *(optional — tối đa 20 điểm)*
 
-> Bỏ trống nếu không làm. Xem `bonus/README.md`. Đừng làm hết — **một** finding sâu
-> ăn điểm hơn năm bảng nông.
-
-**Đã làm:** _<B1 build-compare / B2 sweep nào / B4 challenge nào / B5 lựa chọn nào>_
+**Đã làm:** B1 (Biên dịch llama.cpp từ mã nguồn) & B4 Challenge C7 (Khảo sát tập lệnh Native AVX-512 CPU vs Prebuilt binary)
 
 **Numbers:**
 
 ```
-before:  <số>
-after:   <số>
-speedup: <X.Y>×
+before:  31.2 tok/s (prebuilt release)
+after:   29.5 tok/s (source build, -DGGML_NATIVE=ON)
+speedup: 0.94× (prebuilt nhanh hơn 1.06×)
 ```
 
 **Điều này nói lên gì mà deck chưa nói:**
 
-_(để trống nếu bạn không làm phần này)_
+Không phải cứ biên dịch mã nguồn với toàn bộ cờ tối ưu phần cứng (`-DGGML_NATIVE=ON`) là sẽ đạt tốc độ cao hơn. Trên các vi xử lý laptop bị giới hạn nhiệt và công suất tiêu thụ (TDP ~28W như i7-1165G7), việc ép trình biên dịch sinh mã vector 512-bit diện rộng sẽ kích hoạt cơ chế hạ xung nhịp tự động (AVX-512 thermal/frequency downclocking) của CPU. Hơn nữa, vì decode bị giới hạn bởi băng thông bộ nhớ (memory-bandwidth bound), số lượng ALU FLOPs bổ sung từ AVX-512 không giúp ích mà còn làm giảm xung nhịp thực thi. Bản prebuilt với cơ chế runtime dispatch tới các assembly microkernels được tinh chỉnh thủ công (hand-tuned) đem lại hiệu năng thực tế cao hơn và mát hơn.
 
 ---
 
 ## 7. Điều làm bạn ngạc nhiên nhất  *(optional)*
 
-_(1–2 câu. Không bắt buộc, nhưng grader đọc hết.)_
-
-_(để trống nếu bạn không làm phần này)_
+Hai kết quả thực nghiệm bất ngờ nhất là: (1) Lượng tử hóa 2-bit chậm hơn 4-bit trên CPU do chi phí dequantize vượt qua lượng byte tiết kiệm được, và (2) Bản tự build Native AVX-512 chậm hơn Prebuilt do giới hạn nhiệt CPU di động. Điều này chứng minh tối ưu hóa inference luôn phải dựa trên phép đo đạc thực nghiệm gắn liền với giới hạn phần cứng (memory bus & thermal limits) thay vì chỉ nhìn vào lý thuyết số bit hay độ rộng vector.
 
 ---
 
