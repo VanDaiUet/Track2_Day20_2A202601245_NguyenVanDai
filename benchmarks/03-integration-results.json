@@ -1,0 +1,104 @@
+{
+  "backend": "keyword overlap",
+  "mean_ms": {
+    "embed": 0.0,
+    "retrieve": 0.0,
+    "llm": 4469.5,
+    "total": 4469.6
+  },
+  "results": [
+    {
+      "query": "Why is goodput more useful than raw throughput?",
+      "answer": "Based on the provided context, **Goodput** is more useful than raw throughput because it filters out requests that do not meet the specified targets (specifically the Time-to-First-Throughput, or TTFT, and Time-to-First-Throughput-Overhead, or TPOT).\n\nWhile raw throughput measures the total requests per second, Goodput calculates only the requests that successfully met these targets. This means Goodput provides a more accurate and relevant metric for performance monitoring and optimization, as it excludes \"wasted\" or suboptimal requests that might otherwise inflate the throughput reading.",
+      "contexts": [
+        {
+          "id": "goodput",
+          "score": 1.0
+        },
+        {
+          "id": "paged",
+          "score": 0.0
+        },
+        {
+          "id": "radix",
+          "score": 0.0
+        }
+      ],
+      "embed_backend": "keyword overlap",
+      "timings_ms": {
+        "embed": 0.0,
+        "retrieve": 0.0,
+        "llm": 6065.2,
+        "total": 6065.2
+      },
+      "server_timings": {
+        "prompt_n": 151,
+        "prompt_ms": 977.814,
+        "predicted_n": 121,
+        "predicted_ms": 4304.093
+      }
+    },
+    {
+      "query": "What problem does PagedAttention actually solve?",
+      "answer": "PagedAttention solves the problem of **internal fragmentation in GPU memory** caused by storing the Key-Value (KV) cache in non-contiguous pages.\n\nBy using non-contiguous pages, the model avoids the wasted space that would exist if all KV data were packed into a single contiguous block. This allows the system to utilize more of the GPU's available memory efficiently.",
+      "contexts": [
+        {
+          "id": "paged",
+          "score": 1.0
+        },
+        {
+          "id": "radix",
+          "score": 0.0
+        },
+        {
+          "id": "disagg",
+          "score": 0.0
+        }
+      ],
+      "embed_backend": "keyword overlap",
+      "timings_ms": {
+        "embed": 0.0,
+        "retrieve": 0.0,
+        "llm": 3531.2,
+        "total": 3531.3
+      },
+      "server_timings": {
+        "prompt_n": 114,
+        "prompt_ms": 666.507,
+        "predicted_n": 76,
+        "predicted_ms": 2729.826
+      }
+    },
+    {
+      "query": "When does splitting prefill and decode help?",
+      "answer": "Splitting prefill and decode helps when **prefill is compute-bound and decode is memory-bound**.\n\nThis is because the context explicitly states that prefill is compute-bound (requiring significant processing power) and decode is memory-bound (requiring significant bandwidth). By splitting these operations into separate pools, the system can utilize parallel processing for the compute-heavy part and efficient memory bandwidth for the memory-bound part, thereby improving overall performance.",
+      "contexts": [
+        {
+          "id": "disagg",
+          "score": 2.0
+        },
+        {
+          "id": "radix",
+          "score": 1.0
+        },
+        {
+          "id": "batching",
+          "score": 1.0
+        }
+      ],
+      "embed_backend": "keyword overlap",
+      "timings_ms": {
+        "embed": 0.0,
+        "retrieve": 0.0,
+        "llm": 3812.1,
+        "total": 3812.2
+      },
+      "server_timings": {
+        "prompt_n": 113,
+        "prompt_ms": 653.758,
+        "predicted_n": 87,
+        "predicted_ms": 3024.08
+      }
+    }
+  ]
+}
